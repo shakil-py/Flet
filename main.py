@@ -117,7 +117,7 @@ def main(page: Page):
                     controls=[
                         task,
                         FloatingActionButton(
-                            bottom=1,right=1,
+                            bottom=1, right=1,
                             icon=icons.ADD, on_click=lambda _:page.go("/create_task"))
                     ]
                 )
