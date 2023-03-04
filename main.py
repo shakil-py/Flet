@@ -7,6 +7,34 @@ def main(page: Page):
     fwg = "#97b4ff"
     fg = "#3450a1"
     pink = "#eb06ff"
+    container = Container(
+        width=350,
+        height=650,
+        bgcolor=bg,
+        border_radius=15,
+        content=Stack(
+            controls=[]
+        )
+    )
+    create_task_view = Container(
+
+    )
+    pages = {
+        "/": View("/",
+                [
+                    container
+                ],
+                ),
+        "/create_task": View(
+            "/create_task",
+            [
+                create_task_view
+            ]
+        )
+    }
+    task = Column(
+
+    )
     catagories_card = Row(
         scroll="auto"
     )
@@ -32,7 +60,7 @@ def main(page: Page):
                             content=Container(
                                 bgcolor="pink"
                             )
-                        
+
                         )
 
                     ]
@@ -63,6 +91,15 @@ def main(page: Page):
                 Container(
                     padding=padding.only(top=10, bottom=20),
                     content=catagories_card
+                ),
+                Container(height=20),
+                Text("TODAY's TASK"),
+                Stack(
+                    controls=[
+                        task,
+                        FloatingActionButton(
+                            icon=icons.ADD, on_click=lambda _:page.go("/create_task"))
+                    ]
                 )
             ]
         )
@@ -84,7 +121,7 @@ def main(page: Page):
             )
         ]
     )
-    # main containear #######
+    # main container #######
     container = Container(
         width=350,
         height=650,
@@ -96,9 +133,30 @@ def main(page: Page):
                 page_2
             ]
         )
-
     )
+    pages = {
+        "/": View("/",
+                  [
+                      container
+                  ],
+                  ),
+        "/create_task": View(
+            "/create_task",
+            [
+                create_task_view
+            ]
+        )
+    }
+
+    def route_change(route):
+        page.views.clear()
+        page.views.append(
+            pages[page.route]
+        )
     page.add(container)
+
+    page.on_route_change = route_change
+    page.go(page.route)
 
 
 app(target=main, host=WEB_BROWSER)
