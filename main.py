@@ -17,14 +17,22 @@ def main(page: Page):
         )
     )
     create_task_view = Container(
+        content=Container(
+            on_click=lambda _: page.go("/"),
+            height=40,
+            width=40,
+            padding=10,
+            content=Text("X"),
 
+        ),
     )
     pages = {
-        "/": View("/",
-                [
-                    container
-                ],
-                ),
+        "/": View(
+            "/",
+            [
+                container
+            ],
+        ),
         "/create_task": View(
             "/create_task",
             [
@@ -33,8 +41,19 @@ def main(page: Page):
         )
     }
     task = Column(
-
+        height=280,
+        scroll="auto",
+        # controls=[
+        #     Container(height=50, width=350, bgcolor="black",border_radius=15),
+        #     Container(height=50, width=350, bgcolor="black",border_radius=15),
+        #     Container(height=50, width=350, bgcolor="black",border_radius=15),
+        #     Container(height=50, width=350, bgcolor="black",border_radius=15),
+        # ]
     )
+    for i in range(10):
+        task.controls.append(
+            Container(height=50, width=350, bgcolor="black", border_radius=15),
+        )
     catagories_card = Row(
         scroll="auto"
     )
@@ -98,6 +117,7 @@ def main(page: Page):
                     controls=[
                         task,
                         FloatingActionButton(
+                            bottom=1,right=1,
                             icon=icons.ADD, on_click=lambda _:page.go("/create_task"))
                     ]
                 )
@@ -135,11 +155,12 @@ def main(page: Page):
         )
     )
     pages = {
-        "/": View("/",
-                  [
-                      container
-                  ],
-                  ),
+        "/": View(
+            "/",
+            [
+                container
+            ],
+        ),
         "/create_task": View(
             "/create_task",
             [
